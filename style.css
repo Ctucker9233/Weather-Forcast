@@ -1,3 +1,19 @@
 .jumbotron{
     padding: 1rem 0rem;
+    margin: 0px;
+}
+.container{
+    max-width: 100%;
+    padding: 0px;
+}
+.row{
+    max-width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.col-md-4{
+    padding: 15px;
+}
+.col-md-8{
+    padding: 15px;
 }
