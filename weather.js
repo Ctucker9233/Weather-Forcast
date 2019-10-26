@@ -28,7 +28,7 @@ searchBtn.on("click", function () {
     });
 });
 
-$('div').on("click", ".card", function(event){
+$('div').on("click", ".card", function (event) {
     event.stopPropagation();
     weatherEl.empty();
     var historyInput = $(this)[0].innerHTML;
@@ -156,7 +156,7 @@ function searchHistory() {
         alert("No cities saved in history");
     }
     else if (typeof searchHistory === 'string') {
-        searchHistory=JSON.parse(searchHistory);
+        searchHistory = JSON.parse(searchHistory);
         renderCity(searchHistory);
     }
     else {
@@ -169,54 +169,54 @@ function renderCity(searchHistory) {
     sidebarEl.empty()
     $.each(searchHistory, function (i) {
         var cityName = searchHistory[i];
-        var cityCard = $('<div>' + cityName + "</div>").attr('class', 'card text-center align-middle').attr("id","cityName");
+        var cityCard = $('<div>' + cityName + "</div>").attr('class', 'card text-center align-middle').attr("id", "cityName");
         sidebarEl.prepend(cityCard);
     })
 };
 
-function weeklyForecast(forecast){
-    var forecastCol1 =$('#forecast-day1')
+function weeklyForecast(forecast) {
+    var forecastCol1 = $('#forecast-day1')
     forecastCol1.empty();
-    var forecastCol2 =$('#forecast-day2');
+    var forecastCol2 = $('#forecast-day2');
     forecastCol2.empty();
-    var forecastCol3 =$('#forecast-day3');
+    var forecastCol3 = $('#forecast-day3');
     forecastCol3.empty();
-    var forecastCol4 =$('#forecast-day4');
+    var forecastCol4 = $('#forecast-day4');
     forecastCol4.empty();
-    var forecastCol5 =$('#forecast-day5');
+    var forecastCol5 = $('#forecast-day5');
     forecastCol5.empty();
     var weatherList = forecast.list;
     var today = moment().utc().startOf('day')
     var dayOneUTC = moment(today).utc().add(1, "day").startOf('day');
-    var dayOne = moment(today).add(1, "day").startOf('day').format('MM/DD/YYYY');
+    var dayOne = moment(today).startOf('day').add(1, "day").format('MM/DD/YYYY');
     console.log(dayOne);
     var dayOneStart = moment(dayOneUTC).unix();
     var dayOneEnd = moment(dayOneUTC).endOf('day').unix();
     var dayTwoUTC = moment(today).add(2, "day").startOf('day');
-    var dayTwo = moment(today).add(2, "day").startOf('day').format('MM/DD/YYYY');
+    var dayTwo = moment(today).startOf('day').add(2, "day").format('MM/DD/YYYY');
     console.log(dayTwo);
     var dayTwoStart = moment(dayTwoUTC).unix();
     var dayTwoEnd = moment(dayTwoUTC).endOf('day').unix();
     var dayThreeUTC = moment(today).utc().add(3, "day").startOf('day');
-    var dayThree = moment(today).add(3, "day").startOf('day').format('MM/DD/YYYY');
+    var dayThree = moment(today).startOf('day').add(3, "day").format('MM/DD/YYYY');
     console.log(dayThree);
     var dayThreeStart = moment(dayThreeUTC).unix();
     var dayThreeEnd = moment(dayThreeUTC).endOf('day').unix();
-    var dayFourUTC= moment(today).utc().add(4, "day").startOf('day');
-    var dayFour= moment(today).add(4, "day").startOf('day').format('MM/DD/YYYY');
+    var dayFourUTC = moment(today).utc().add(4, "day").startOf('day');
+    var dayFour = moment(today).startOf('day').add(4, "day").format('MM/DD/YYYY');
     console.log(dayFour);
     var dayFourStart = moment(dayFourUTC).unix();
     var dayFourEnd = moment(dayFourUTC).endOf('day').unix();
-    var dayFiveUTC= moment(today).utc().add(5, "day").startOf('day');
-    var dayFive= moment(today).add(5, "day").startOf('day').format('MM/DD/YYYY');
+    var dayFiveUTC = moment(today).utc().add(5, "day").startOf('day');
+    var dayFive = moment(today).startOf('day').add(5, "day").format('MM/DD/YYYY');
     console.log(dayFive);
     var dayFiveStart = moment(dayFiveUTC).unix();
     var dayFiveEnd = moment(dayFiveUTC).endOf('day').unix();
-    var forecastDay1 =$("<h5>").text(dayOne);
-    var forecastDay2 =$("<h5>").text(dayTwo);
-    var forecastDay3 =$("<h5>").text(dayThree);
-    var forecastDay4 =$("<h5>").text(dayFour);
-    var forecastDay5 =$("<h5>").text(dayFive);
+    var forecastDay1 = $("<h5>").text(dayOne);
+    var forecastDay2 = $("<h5>").text(dayTwo);
+    var forecastDay3 = $("<h5>").text(dayThree);
+    var forecastDay4 = $("<h5>").text(dayFour);
+    var forecastDay5 = $("<h5>").text(dayFive);
     var hour;
     forecastCol1.append(forecastDay1);
     forecastCol2.append(forecastDay2);
@@ -226,94 +226,94 @@ function weeklyForecast(forecast){
     console.log(dayOne)
     console.log(dayOneEnd);
     console.log(weatherList);
-    for(i=0; i<weatherList.length; i++){
+    for (i = 0; i < weatherList.length; i++) {
         var value = weatherList[i].dt
         var forecastDate;
         var forecastIcon;
         var forecastImg;
         var forecastTemp;
         var forecastHumidity;
-        if(weatherList[i].dt >= dayOneStart && weatherList[i].dt <= dayOneEnd){
+        if (weatherList[i].dt >= dayOneStart && weatherList[i].dt <= dayOneEnd) {
             console.log("Day 1" + weatherList[i].dt);
             console.log(dayOneStart);
             hour = moment(value, "X").format();
             hourTZ = moment(hour).format('hh:mm A');
-            forecastDate =$("<p>").text(hourTZ).css("border-top", "1px white solid");
+            forecastDate = $("<p>").text(hourTZ).css("border-top", "1px white solid");
             forecastCol1.append(forecastDate);
             forecastIcon = weatherList[i].weather[0].icon;
             forecastImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png").attr("class", "forecastIcon");
             forecastCol1.append(forecastImg);
-            forecastTemp = $('<p>'+ weatherList[i].main.temp + '&#8457</p>');
+            forecastTemp = $('<p>' + weatherList[i].main.temp + '&#8457</p>');
             forecastCol1.append(forecastTemp);
             forecastHumidity = $('<p>Humidity: ' + weatherList[i].main.humidity + "%</p>")
             forecastCol1.append(forecastHumidity);
         }
-        else if(weatherList[i].dt >= dayTwoStart && weatherList[i].dt <= dayTwoEnd){
+        else if (weatherList[i].dt >= dayTwoStart && weatherList[i].dt <= dayTwoEnd) {
             console.log("Day 2" + weatherList[i].dt);
             console.log(dayTwoStart);
             hour = moment(value, "X").format();
             hourTZ = moment(hour).format('hh:mm A');
-            forecastDate =$("<p>").text(hourTZ).css("border-top", "1px white solid");;
+            forecastDate = $("<p>").text(hourTZ).css("border-top", "1px white solid");;
             forecastCol2.append(forecastDate);
             forecastIcon = weatherList[i].weather[0].icon;
             forecastImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png").attr("class", "forecastIcon");
             forecastCol2.append(forecastImg);
-            forecastTemp = $('<p>'+ weatherList[i].main.temp + '&#8457</p>');
+            forecastTemp = $('<p>' + weatherList[i].main.temp + '&#8457</p>');
             forecastCol2.append(forecastTemp);
             forecastHumidity = $('<p>Humidity: ' + weatherList[i].main.humidity + "%</p>")
             forecastCol2.append(forecastHumidity);
         }
-        else if(weatherList[i].dt >= dayThreeStart && weatherList[i].dt <= dayThreeEnd){
+        else if (weatherList[i].dt >= dayThreeStart && weatherList[i].dt <= dayThreeEnd) {
             console.log("Day 2" + weatherList[i].dt);
             console.log(dayThreeStart);
             hour = moment(value, "X").format();
             hourTZ = moment(hour).format('hh:mm A');
-            forecastDate =$("<p>").text(hourTZ).css("border-top", "1px white solid");;
+            forecastDate = $("<p>").text(hourTZ).css("border-top", "1px white solid");;
             forecastCol3.append(forecastDate);
             forecastIcon = weatherList[i].weather[0].icon;
             forecastImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png").attr("class", "forecastIcon");
             forecastCol3.append(forecastImg);
-            forecastTemp = $('<p>'+ weatherList[i].main.temp + '&#8457</p>');
+            forecastTemp = $('<p>' + weatherList[i].main.temp + '&#8457</p>');
             forecastCol3.append(forecastTemp);
             forecastHumidity = $('<p>Humidity: ' + weatherList[i].main.humidity + "%</p>")
             forecastCol3.append(forecastHumidity);
         }
-        else if(weatherList[i].dt >= dayFourStart && weatherList[i].dt <= dayFourEnd){
+        else if (weatherList[i].dt >= dayFourStart && weatherList[i].dt <= dayFourEnd) {
             console.log("Day 4" + weatherList[i].dt);
             console.log(dayFourStart);
             hour = moment(value, "X").format();
             hourTZ = moment(hour).format('hh:mm A');
-            forecastDate =$("<p>").text(hourTZ).css("border-top", "1px white solid");;
+            forecastDate = $("<p>").text(hourTZ).css("border-top", "1px white solid");;
             forecastCol4.append(forecastDate);
             forecastIcon = weatherList[i].weather[0].icon;
             forecastImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png").attr("class", "forecastIcon");
             forecastCol4.append(forecastImg);
-            forecastTemp = $('<p>'+ weatherList[i].main.temp + '&#8457</p>');
+            forecastTemp = $('<p>' + weatherList[i].main.temp + '&#8457</p>');
             forecastCol4.append(forecastTemp);
             forecastHumidity = $('<p>Humidity: ' + weatherList[i].main.humidity + "%</p>")
             forecastCol4.append(forecastHumidity);
         }
-        else if(weatherList[i].dt >= dayFiveStart && weatherList[i].dt <= dayFiveEnd){
+        else if (weatherList[i].dt >= dayFiveStart && weatherList[i].dt <= dayFiveEnd) {
             console.log("Day 5" + weatherList[i].dt);
             console.log(dayFiveStart);
             hour = moment(value, "X").format();
             hourTZ = moment(hour).format('hh:mm A');
-            forecastDate =$("<p>").text(hourTZ).css("border-top", "1px white solid");;
+            forecastDate = $("<p>").text(hourTZ).css("border-top", "1px white solid");;
             forecastCol5.append(forecastDate);
             forecastIcon = weatherList[i].weather[0].icon;
             forecastImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png").attr("class", "forecastIcon");
             forecastCol5.append(forecastImg);
-            forecastTemp = $('<p>'+ weatherList[i].main.temp + '&#8457</p>');
+            forecastTemp = $('<p>' + weatherList[i].main.temp + '&#8457</p>');
             forecastCol5.append(forecastTemp);
             forecastHumidity = $('<p>Humidity: ' + weatherList[i].main.humidity + "%</p>")
             forecastCol5.append(forecastHumidity);
         }
-        
+
     }
 
 };
 
-function defaultWeather(){
+function defaultWeather() {
     weatherEl.empty();
     var defaultWeather = JSON.parse(localStorage.getItem("city"));
     console.log(defaultWeather)
