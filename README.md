@@ -1,7 +1,6 @@
 # Weather-Forecast
 
 # Description
-===============
 Use this app to get current weather information and a 5 day weather forecast
 
 # Instructions
